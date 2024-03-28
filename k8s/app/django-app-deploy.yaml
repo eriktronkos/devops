@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-todos-app-deploy
+  namespace: django-todos-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-todos-application
+  template:
+    metadata:
+      labels:
+        app: django-todos-application
+    spec:
+      containers:
+        - image: erikeft/django-todos:v2.0
+          imagePullPolicy: Always
+          name: django-todos-app-container
+          envFrom:
+            - configMapRef:
+                name: app-cm
+          ports:
+            - containerPort: 8000
