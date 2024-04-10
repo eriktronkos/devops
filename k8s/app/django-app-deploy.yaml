@@ -14,7 +14,7 @@ spec:
         app: django-todos-application
     spec:
       containers:
-        - image: erikeft/django-todos:v2.0
+        - image: erikeft/django-todos:v4
           imagePullPolicy: Always
           name: django-todos-app-container
           envFrom:
@@ -22,3 +22,9 @@ spec:
                 name: app-cm
           ports:
             - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: api/v1/healthcheck/
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
