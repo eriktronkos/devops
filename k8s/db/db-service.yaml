@@ -6,10 +6,9 @@ metadata:
   labels:
     app: postgres-svc
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 5432
       targetPort: 5432
-      nodePort: 30004
   selector:
     app: postgresdb
